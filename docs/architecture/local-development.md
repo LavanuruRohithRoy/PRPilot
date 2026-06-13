@@ -12,7 +12,7 @@ PRPilot is designed to run locally using a set of Docker containers to ensure en
 graph TD
     User[Developer] -->|localhost:3000| Frontend[prpilot-frontend]
     User -->|localhost:8000| Backend[prpilot-backend]
-    
+
     subgraph Shared Bridge Network: prpilot-network
         Frontend
         Backend
@@ -50,7 +50,7 @@ graph TD
 
 ## 3. Networking Overview
 
-All containers join a custom docker bridge network named `prpilot-network`. 
+All containers join a custom docker bridge network named `prpilot-network`.
 
 * **DNS Resolution**: Containers communicate internally using their service names as hosts (e.g. `postgres:5432`, `redis:6379`).
 * **Isolation**: Limits traffic exposure to local system developer environments and mitigates port collisions.
