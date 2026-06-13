@@ -11,6 +11,10 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.111.0",
     "uvicorn>=0.30.0",
+    "sqlalchemy>=2.0.0",
+    "asyncpg",
+    "alembic",
+    "pydantic-settings",
 ]
 
 [project.optional-dependencies]
