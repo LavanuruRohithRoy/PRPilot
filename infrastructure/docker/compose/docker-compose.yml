@@ -1,0 +1,82 @@
+services:
+  backend:
+    container_name: prpilot-backend
+    env_file:
+      - ../../../.env
+    build:
+      context: ../../../backend
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    volumes:
+      - ../../../backend:/app
+    networks:
+      - prpilot-network
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  frontend:
+    container_name: prpilot-frontend
+    env_file:
+      - ../../../.env
+    build:
+      context: ../../../frontend
+      dockerfile: Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    volumes:
+      - ../../../frontend:/app
+    networks:
+      - prpilot-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: prpilot-postgres
+    env_file:
+      - ../../../.env
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - prpilot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    container_name: prpilot-redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - prpilot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    name: prpilot_postgres_data
+
+networks:
+  prpilot-network:
+    name: prpilot-network
+    driver: bridge
