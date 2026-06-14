@@ -13,6 +13,14 @@ from app.schemas.pull_request import PullRequest as PullRequestSchema
 router = APIRouter()
 
 
+@router.get("", response_model=list[PullRequestSchema], tags=["pull-requests"])
+async def list_pull_requests(
+    pr_repository: PullRequestRepository = Depends(get_pull_request_repository),
+) -> Any:
+    """List all pull requests across all repositories ordered by opened_at DESC."""
+    return await pr_repository.list_all()
+
+
 @router.get("/{id}", response_model=PullRequestSchema, tags=["pull-requests"])
 async def get_pull_request(
     id: uuid.UUID,

@@ -63,3 +63,9 @@ class PullRequestRepository(BaseRepository[PullRequest]):
         query = select(PullRequest).where(PullRequest.repository_id == repo_id)
         result = await self.session.execute(query)
         return result.scalars().all()
+
+    async def list_all(self) -> Sequence[PullRequest]:
+        """Fetch all PullRequest records ordered by opened_at DESC."""
+        query = select(PullRequest).order_by(PullRequest.opened_at.desc())
+        result = await self.session.execute(query)
+        return result.scalars().all()

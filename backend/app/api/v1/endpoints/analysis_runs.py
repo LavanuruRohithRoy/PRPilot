@@ -3,11 +3,20 @@ from typing import Any
 
 from fastapi import APIRouter, Depends
 
-from app.api.deps import get_analysis_service
+from app.api.deps import get_analysis_repository, get_analysis_service
+from app.repositories.analysis import AnalysisRepository
 from app.schemas.analysis import Analysis as AnalysisSchema
 from app.services.pr_analysis import PRAnalysisService
 
 router = APIRouter()
+
+
+@router.get("", response_model=list[AnalysisSchema], tags=["analyses"])
+async def list_analyses(
+    analysis_repository: AnalysisRepository = Depends(get_analysis_repository),
+) -> Any:
+    """List all analysis records across all pull requests ordered by created_at DESC."""
+    return await analysis_repository.list_all()
 
 
 @router.post(

@@ -64,3 +64,9 @@ class AnalysisRepository(BaseRepository[Analysis]):
         )
         result = await self.session.execute(query)
         return result.scalars().all()
+
+    async def list_all(self) -> Sequence[Analysis]:
+        """Fetch all Analysis records ordered by created_at DESC."""
+        query = select(Analysis).order_by(Analysis.created_at.desc())
+        result = await self.session.execute(query)
+        return result.scalars().all()

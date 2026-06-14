@@ -19,12 +19,12 @@ PRPilot bridges this gap by offering a rule-based deterministic risk-analysis en
 
 ## 2. Architecture Overview
 
-PRPilot is built with a decoupled monorepo architecture separating the FastAPI backend, Next.js frontend, and Azure AI Foundry integrations:
+PRPilot is built with a decoupled monorepo architecture separating the FastAPI backend, React/Vite frontend, and Azure AI Foundry integrations:
 
 ```mermaid
 flowchart TD
     subgraph Client Application
-        Web[Next.js Dashboard UI]
+        Web[React Dashboard UI]
         Dev[CLI / API Client]
     end
 
@@ -72,6 +72,7 @@ flowchart TD
 ## 3. Tech Stack
 
 *   **Core Backend**: Python 3.11, FastAPI, SQLAlchemy (PostgreSQL driver), Pydantic v2
+*   **Frontend**: React 18, Vite 4, TypeScript, Recharts
 *   **Verification & Quality**: Pytest, Ruff, Mypy
 *   **AI Integration**: Azure AI Projects (`azure-ai-projects`), Azure Identity (`azure-identity`), OpenAI API
 *   **Data Tier**: PostgreSQL, Local temporary JSON Storage
@@ -115,7 +116,8 @@ prpilot/
 ├── docs/                     # Platform Specifications
 │   ├── architecture/         # Architectural flow diagrams
 │   └── decisions/            # Architectural Decision Records (ADRs)
-└── frontend/                 # Next.js Dashboard Frontend
+└── frontend/
+    └── prpilot-ui/           # React + Vite Dashboard (TypeScript)
 ```
 
 ---
@@ -142,6 +144,7 @@ Copy `backend/.env.example` to `backend/.env` and configure:
 *   Python 3.11+
 *   PostgreSQL Database
 *   `uv` package manager (`pip install uv`)
+*   Node.js 18+ and npm
 
 ### Steps
 1.  **Clone the Repository**:
@@ -168,6 +171,13 @@ Copy `backend/.env.example` to `backend/.env` and configure:
     ```bash
     uv run uvicorn app.main:app --reload
     ```
+7.  **Run Frontend** (separate terminal):
+    ```bash
+    cd ../frontend/prpilot-ui
+    npm install
+    npm run dev
+    # → http://localhost:5173
+    ```
 
 ---
 
@@ -177,25 +187,15 @@ Copy `backend/.env.example` to `backend/.env` and configure:
 | :--- | :--- | :--- |
 | `POST` | `/api/v1/webhooks/github` | Ingests secure webhook event actions from GitHub |
 | `GET` | `/api/v1/dashboard` | Returns system-wide aggregated counts and recent analyses |
+| `GET` | `/api/v1/repositories` | Lists all registered repositories |
+| `GET` | `/api/v1/pull-requests` | Lists all pull requests across all repositories |
+| `GET` | `/api/v1/analyses` | Lists all analysis records ordered by recency |
 | `POST` | `/api/v1/intelligence/ingest` | Compiles SQL records into the local grounding snapshot |
 | `GET` | `/api/v1/intelligence/query` | Executes grounded Q&A over repositories and pull requests |
 
 ---
 
-## 10. Platform Screenshots Placeholders
-
-### Swagger UI Docs
-![Swagger UI Example](file:///docs/images/swagger_ui_placeholder.png)
-
-### Admin Dashboard
-![Admin Dashboard Example](file:///docs/images/dashboard_placeholder.png)
-
-### PR Analysis Flow
-![PR Analysis Flow](file:///docs/images/analysis_workflow_placeholder.png)
-
----
-
-## 11. Documentation Index
+## 10. Documentation Index
 
 Detailed architectural specifications, workflows, and ADRs are mapped below:
 
