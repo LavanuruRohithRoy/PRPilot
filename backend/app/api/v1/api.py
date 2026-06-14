@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.api.v1.endpoints import (
     analysis_runs,
     dashboard,
+    intelligence,
     meta,
     pull_requests,
     repositories,
@@ -20,3 +21,6 @@ api_router.include_router(
 )
 api_router.include_router(analysis_runs.router, prefix="/analyses", tags=["analyses"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
+api_router.include_router(
+    intelligence.router, prefix="/intelligence", tags=["intelligence"]
+)

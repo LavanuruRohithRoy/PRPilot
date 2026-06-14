@@ -12,6 +12,7 @@ from app.repositories.repository import RepositoryRepository
 from app.services.analysis_engine import AnalysisEngine
 from app.services.analysis_service import AnalysisService
 from app.services.dashboard_service import DashboardService
+from app.services.foundry_iq import FoundryIQService
 from app.services.pr_analysis import PRAnalysisService
 
 
@@ -87,3 +88,10 @@ def get_dashboard_service(
 ) -> DashboardService:
     """Dependency provider for DashboardService."""
     return DashboardService(session)
+
+
+def get_foundry_iq_service(
+    session: AsyncSession = Depends(get_db_session),
+) -> FoundryIQService:
+    """Dependency provider for FoundryIQService."""
+    return FoundryIQService(session)

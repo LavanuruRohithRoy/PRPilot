@@ -8,6 +8,7 @@ from app.schemas.analysis import (
 )
 from app.schemas.dashboard import DashboardRecentAnalysis, DashboardSummary
 from app.schemas.errors import ErrorResponse
+from app.schemas.intelligence import GroundedCitation, GroundedQueryResponse
 from app.schemas.pull_request import (
     PullRequest,
     PullRequestBase,
@@ -29,6 +30,8 @@ __all__ = [
     "DashboardRecentAnalysis",
     "DashboardSummary",
     "ErrorResponse",
+    "GroundedCitation",
+    "GroundedQueryResponse",
     "PullRequest",
     "PullRequestBase",
     "PullRequestCreate",
