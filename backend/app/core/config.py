@@ -11,6 +11,11 @@ ENV_FILE = BASE_DIR / ".env"
 class Settings(BaseSettings):
     DATABASE_URL: PostgresDsn
 
+    # GitHub Integration Config
+    GITHUB_TOKEN: str = ""
+    GITHUB_WEBHOOK_SECRET: str = ""
+    GITHUB_API_URL: str = "https://api.github.com"
+
     model_config = SettingsConfigDict(
         env_file=str(ENV_FILE),
         env_file_encoding="utf-8",

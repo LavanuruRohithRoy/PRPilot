@@ -15,6 +15,7 @@ dependencies = [
     "asyncpg",
     "alembic",
     "pydantic-settings",
+    "httpx>=0.28.0",
 ]
 
 [project.optional-dependencies]
