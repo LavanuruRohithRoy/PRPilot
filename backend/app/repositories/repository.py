@@ -39,7 +39,7 @@ class RepositoryRepository(BaseRepository[Repository]):
         return repo
 
     async def list_all(self) -> Sequence[Repository]:
-        """Fetch all Repository records from the database."""
-        query = select(Repository)
+        """Fetch all Repository records from the database sorted by created_at DESC."""
+        query = select(Repository).order_by(Repository.created_at.desc())
         result = await self.session.execute(query)
         return result.scalars().all()

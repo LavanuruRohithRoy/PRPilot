@@ -51,7 +51,7 @@ select = [
     "UP",   # pyupgrade (modern python updates)
     "RUF",  # Ruff-specific rules
 ]
-ignore = []
+ignore = ["B008"]
 
 [tool.ruff.format]
 quote-style = "double"
