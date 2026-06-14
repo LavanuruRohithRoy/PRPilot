@@ -8,6 +8,7 @@ from app.integrations.github.exceptions import (
     GitHubRequestError,
     GitHubWebhookVerificationError,
 )
+from app.integrations.github.services import GitHubSyncService
 from app.integrations.github.webhooks import verify_webhook_signature
 
 __all__ = [
@@ -16,6 +17,7 @@ __all__ = [
     "GitHubError",
     "GitHubRateLimitError",
     "GitHubRequestError",
+    "GitHubSyncService",
     "GitHubWebhookVerificationError",
     "verify_webhook_signature",
 ]
