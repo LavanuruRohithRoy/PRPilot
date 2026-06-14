@@ -3,7 +3,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.models.enums import AnalysisStatus
+from app.models.enums import AnalysisStatus, RiskLevel
 
 
 class AnalysisBase(BaseModel):
@@ -13,6 +13,8 @@ class AnalysisBase(BaseModel):
     status: AnalysisStatus = AnalysisStatus.PENDING
     summary: str | None = None
     risk_score: int | None = Field(default=None, ge=0, le=100)
+    risk_level: RiskLevel | None = None
+    findings: list[str] | None = None
 
 
 class AnalysisCreate(AnalysisBase):
@@ -28,6 +30,8 @@ class AnalysisUpdate(BaseModel):
     status: AnalysisStatus | None = None
     summary: str | None = None
     risk_score: int | None = Field(default=None, ge=0, le=100)
+    risk_level: RiskLevel | None = None
+    findings: list[str] | None = None
 
 
 class Analysis(AnalysisBase):

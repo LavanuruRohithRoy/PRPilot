@@ -12,3 +12,9 @@ class PullRequestStatus(StrEnum):
     OPEN = "open"
     CLOSED = "closed"
     MERGED = "merged"
+
+
+class RiskLevel(StrEnum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
