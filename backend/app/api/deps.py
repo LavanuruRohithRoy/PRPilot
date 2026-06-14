@@ -11,6 +11,7 @@ from app.repositories.pull_request import PullRequestRepository
 from app.repositories.repository import RepositoryRepository
 from app.services.analysis_engine import AnalysisEngine
 from app.services.analysis_service import AnalysisService
+from app.services.dashboard_service import DashboardService
 from app.services.pr_analysis import PRAnalysisService
 
 
@@ -79,3 +80,10 @@ def get_analysis_service(
         session=session,
         engine=engine,
     )
+
+
+def get_dashboard_service(
+    session: AsyncSession = Depends(get_db_session),
+) -> DashboardService:
+    """Dependency provider for DashboardService."""
+    return DashboardService(session)

@@ -6,6 +6,7 @@ from app.schemas.analysis import (
     AnalysisCreate,
     AnalysisUpdate,
 )
+from app.schemas.dashboard import DashboardRecentAnalysis, DashboardSummary
 from app.schemas.errors import ErrorResponse
 from app.schemas.pull_request import (
     PullRequest,
@@ -25,6 +26,8 @@ __all__ = [
     "AnalysisBase",
     "AnalysisCreate",
     "AnalysisUpdate",
+    "DashboardRecentAnalysis",
+    "DashboardSummary",
     "ErrorResponse",
     "PullRequest",
     "PullRequestBase",

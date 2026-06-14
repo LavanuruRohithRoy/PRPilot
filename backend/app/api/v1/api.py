@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
     analysis_runs,
+    dashboard,
     meta,
     pull_requests,
     repositories,
@@ -18,3 +19,4 @@ api_router.include_router(
     pull_requests.router, prefix="/pull-requests", tags=["pull-requests"]
 )
 api_router.include_router(analysis_runs.router, prefix="/analyses", tags=["analyses"])
+api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
